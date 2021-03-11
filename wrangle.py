@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from sklearn.model_selection import train_test_split
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def acquire_telco():
@@ -12,6 +13,7 @@ def acquire_telco():
 def clean_telco(df):
     '''
     Takes in a df of telco_data and cleans the data appropriatly by dropping nulls,
+    removing white space,
     creates dummy variables for Contract type,
     converts data to numerical, and bool data types, 
     and drops columsn that are not needed.
@@ -20,13 +22,17 @@ def clean_telco(df):
     return: df, a cleaned pandas data frame.
     '''
     
+    # Instead of using dummies to seperate contracts use, 
+    # df[['Contract']].value_counts()
+    # Use a SQL querry
+    
     df = df
+    df.TotalCharges = df.TotalCharges.replace(r'^\s*$', np.nan, regex = True)
+    df = df.fillna(0)
     dummy_df = pd.get_dummies(df[["Contract"]], drop_first=True)
     df = pd.concat([df, dummy_df], axis=1)
     df['Contract_Two year'] = df['Contract_Two year'].astype(bool)
     df = df.loc[df['Contract_Two year'], :]
-    df = df.dropna()
-    df['SeniorCitizen'] = df['SeniorCitizen'].astype('O')
     df = df.drop(columns = ['gender','SeniorCitizen',
                             'Partner','Dependents',
                             'PhoneService','MultipleLines',
