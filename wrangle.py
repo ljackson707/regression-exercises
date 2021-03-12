@@ -41,8 +41,8 @@ def clean_telco(df):
                             'TechSupport','StreamingTV',
                             'StreamingMovies','PaperlessBilling',
                             'PaymentMethod','Contract_One year',
-                            'Contract','Churn'])
-             
+                            'Contract','Churn', 'Contract_Two year'])
+    df = df.set_index("customerID")         
     return df
     
 def split_telco(df):
@@ -64,3 +64,5 @@ def wrangle_telco():
     '''
     df = clean_telco(acquire_telco())
     return split_telco(df)
+
+# Use train.index = train.customerID to make index the id and then you can drop the customerId column when running regressions.
