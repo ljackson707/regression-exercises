@@ -101,7 +101,10 @@ def clean_zillow(df):
     # Use a SQL querry
     
     df = df
-    df = df.loc[:, df.isnull().mean() < .10]        
+    df = df.loc[:, df.isnull().mean() < .10]
+    df = df.fillna(0)
+    df = df.dropna()
+    df = df.drop(columns = ['transactiondate', 'propertyzoningdesc', 'propertycountylandusecode', 'id', 'censustractandblock', 'logerror','assessmentyear','taxvaluedollarcnt', 'structuretaxvaluedollarcnt','regionidcounty','regionidcity', 'rawcensustractandblock', 'longitude', 'latitude', 'heatingorsystemtypeid','regionidzip', 'finishedsquarefeet12', 'id','parcelid', 'roomcnt', 'unitcnt'])
     return df
     
 def split_zillow(df, stratify_by=""):
