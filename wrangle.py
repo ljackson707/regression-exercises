@@ -34,7 +34,7 @@ def clean_telco(df):
     df = df.fillna(0)
     dummy_df = pd.get_dummies(df[["Contract"]], drop_first=True)
     df = pd.concat([df, dummy_df], axis=1)
-    df['Contract_Two year'] = df['Contract_Two year'].astype(bool)
+    b
     df = df.loc[df['Contract_Two year'], :]
     df = df.drop(columns = ['gender','SeniorCitizen',
                             'Partner','Dependents',
@@ -128,3 +128,5 @@ def wrangle_zillow():
     '''
     df = clean_zillow(acquire_zillow())
     return split_zillow(df)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
