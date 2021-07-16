@@ -164,7 +164,7 @@ def get_object_cols(df):
     # create a mask of columns whether they are object type or not
     mask = np.array(df.dtypes == "object")
 
-        
+
     # get a list of the column names that are objects (from the mask)
     object_cols = df.iloc[:, mask].columns.tolist()
     
